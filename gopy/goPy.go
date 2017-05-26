@@ -9,7 +9,6 @@ import (
 type TCProute struct {
 	Host string
 	Port string
-	conn net.Conn
 }
 
 type data struct {
@@ -22,18 +21,22 @@ type dataResponse struct {
 	Response string `json:"response"`
 }
 
-func (obj *TCProute) connect() error {
+type connection struct {
+	conn net.Conn
+}
+
+func (obj *TCProute) connect() (*connection, error) {
 	addr := obj.Host + ":" + obj.Port
 	fmt.Println("host and port to connect", addr)
 	client, err := net.Dial("tcp", addr)
+	ret := connection{client}
 	if err != nil {
-		return err
+		return nil, err
 	}
-	obj.conn = client
-	return nil
+	return &ret, nil
 }
 
-func (obj *TCProute) sendData(dataIN *data) (bool, error) {
+func (obj *connection) sendData(dataIN *data) (bool, error) {
 	jsonData, err := json.Marshal(*dataIN)
 	if err != nil {
 		return false, err
@@ -42,7 +45,7 @@ func (obj *TCProute) sendData(dataIN *data) (bool, error) {
 	return true, nil
 }
 
-func (obj *TCProute) recvData() (dataResponse, error) {
+func (obj *connection) recvData() (dataResponse, error) {
 	r := make([]byte, 4096)
 	n, _ := obj.conn.Read(r)
 	response := r[:n]
