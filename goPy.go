@@ -6,66 +6,85 @@ import (
 	"net"
 )
 
-//TCProute is the first struct in this program
-type TCProute struct {
+//TCPRoute is used to set the Host and Port pair
+type TCPRoute struct {
 	Host string
 	Port string
 }
 
-// the data structure to be used to make RPC call
-type data struct {
+// Data structure to be used to make RPC call
+type Data struct {
 	Method string        `json:"method"`
 	Args   []interface{} `json:"args"`
 	Time   string        `json:"time"`
 }
 
-// The Response of data from RPC CALL
-type dataResponse struct {
+// DataResponse of data from RPC CALL
+type DataResponse struct {
 	Response string `json:"response"`
 }
 
-// Using the simple connection interface from net package
-type connection struct {
-	conn net.Conn
+// Connection  interface from net package
+type Connection struct {
+	Conn net.Conn
 }
 
-func (obj *TCProute) connect() (*connection, error) {
+// RandomJSON is used to send random data as string
+// {"data":"USER INPUT STRING DATA"}
+type RandomJSON struct {
+	StringData string `json:"data"`
+}
+
+// Connect is used to connect with host and port on a TCP stream
+func (obj *TCPRoute) Connect() (*Connection, error) {
 	addr := obj.Host + ":" + obj.Port
 	fmt.Println("host and port to connect", addr)
 	client, err := net.Dial("tcp", addr)
-	ret := connection{client}
+	ret := &Connection{client}
 	if err != nil {
 		return nil, err
 	}
-	return &ret, nil
+	return ret, nil
 }
 
-func (obj *connection) sendData(dataIN *data) (bool, error) {
+// MakeRPC is used to send *Data  over TCP stream
+func (obj *Connection) MakeRPC(dataIN *Data) (bool, error) {
 	jsonData, err := json.Marshal(*dataIN)
 	if err != nil {
 		return false, err
 	}
-	obj.conn.Write(jsonData)
+	obj.Conn.Write(jsonData)
 	return true, nil
 }
 
-func (obj *connection) recvData() (dataResponse, error) {
+// SendRandomJSON method can be used to send any sort of StringData
+func (obj *Connection) SendRandomJSON(dataIN *RandomJSON) error {
+	jsonData, err := json.Marshal(*dataIN)
+	if err != nil {
+		return err
+	}
+	obj.Conn.Write(jsonData)
+	return nil
+}
+
+// RecvData is used to RecvData data over TCP stream
+func (obj *Connection) RecvData() (*DataResponse, error) {
 	r := make([]byte, 4096)
-	n, _ := obj.conn.Read(r)
+	n, _ := obj.Conn.Read(r)
 	response := r[:n]
-	var v dataResponse
+	var v DataResponse
 	err := json.Unmarshal(response, &v)
 	if err != nil {
-		return v, err
+		return &v, err
 	}
-	return v, nil
+	return &v, nil
 }
 
 // func main() {
 // 	cli := &TCProute{"localhost", "9000"}
+// 	tIni := (strconv.Itoa(t0.Hour())) + ":" + (strconv.Itoa(t0.Minute())) + ":" + strconv.Itoa(t0.Second()) + "." + strconv.Itoa(t0.Nanosecond())[:6]
 // 	conn, _ := cli.connect()
 // 	t0 := time.Now()
-// 	tIni := (strconv.Itoa(t0.Hour())) + ":" + (strconv.Itoa(t0.Minute())) + ":" + strconv.Itoa(t0.Second()) + "." + strconv.Itoa(t0.Nanosecond())[:6]
 // 	d := &data{"show", []interface{}{10, 20.2, 30, 40, "i am nikhil"}, tIni}
 // 	conn.sendData(d)
 // 	recv, _ := conn.recvData()
