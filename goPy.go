@@ -12,16 +12,19 @@ type TCProute struct {
 	Port string
 }
 
+// the data structure to be used to make RPC call
 type data struct {
 	Method string        `json:"method"`
 	Args   []interface{} `json:"args"`
 	Time   string        `json:"time"`
 }
 
+// The Response of data from RPC CALL
 type dataResponse struct {
 	Response string `json:"response"`
 }
 
+// Using the simple connection interface from net package
 type connection struct {
 	conn net.Conn
 }
