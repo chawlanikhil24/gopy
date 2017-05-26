@@ -6,6 +6,7 @@ import (
 	"net"
 )
 
+//TCProute is the first struct in this program
 type TCProute struct {
 	Host string
 	Port string
@@ -56,3 +57,15 @@ func (obj *connection) recvData() (dataResponse, error) {
 	}
 	return v, nil
 }
+
+// func main() {
+// 	cli := &TCProute{"localhost", "9000"}
+// 	conn, _ := cli.connect()
+// 	t0 := time.Now()
+// 	tIni := (strconv.Itoa(t0.Hour())) + ":" + (strconv.Itoa(t0.Minute())) + ":" + strconv.Itoa(t0.Second()) + "." + strconv.Itoa(t0.Nanosecond())[:6]
+// 	d := &data{"show", []interface{}{10, 20.2, 30, 40, "i am nikhil"}, tIni}
+// 	conn.sendData(d)
+// 	recv, _ := conn.recvData()
+// 	fmt.Println(recv)
+//
+// }
