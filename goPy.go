@@ -2,7 +2,6 @@ package goPy
 
 import (
 	"encoding/json"
-	"fmt"
 	"net"
 )
 
@@ -16,7 +15,7 @@ type TCPRoute struct {
 type Data struct {
 	Method string        `json:"method"`
 	Args   []interface{} `json:"args"`
-	Time   string        `json:"time"`
+	// Time   string        `json:"time"`
 }
 
 // DataResponse of data from RPC CALL
@@ -38,13 +37,18 @@ type RandomJSON struct {
 // Connect is used to connect with host and port on a TCP stream
 func (obj *TCPRoute) Connect() (*Connection, error) {
 	addr := obj.Host + ":" + obj.Port
-	fmt.Println("host and port to connect", addr)
+	// fmt.Println("host and port to connect", addr)
 	client, err := net.Dial("tcp", addr)
 	ret := &Connection{client}
 	if err != nil {
 		return nil, err
 	}
 	return ret, nil
+}
+
+// Close Fucntion can be used to close the TCP stream
+func (obj *Connection) Close() {
+	obj.Close()
 }
 
 // MakeRPC is used to send *Data  over TCP stream
