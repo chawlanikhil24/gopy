@@ -2,7 +2,7 @@
 ---
 #### A Go Client library for JSON-RPC based on Python. With this library, you can cross-communicate with Python RPC Server in a flick.
 
-#### For a quick demo for this library, please visit this [LINK](chawlanikhil24.blogspot.com).
+#### For a quick demo for this library, please visit this [LINK](http://chawlanikhil24.blogspot.com/2017/06/lets-combine-features-of-python-and.html).
 
 ---
 **Why I developed this library?**
