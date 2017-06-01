@@ -46,9 +46,11 @@ func (obj *TCPRoute) Connect() (*Connection, error) {
 	return ret, nil
 }
 
-// Close Fucntion can be used to close the TCP stream
+// Close Function can be used to close the TCP stream
 func (obj *Connection) Close() {
-	obj.Close()
+	conn := *obj
+	x := conn.Conn
+	x.Close()
 }
 
 // MakeRPC is used to send *Data  over TCP stream
