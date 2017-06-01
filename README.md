@@ -62,4 +62,4 @@ recvData, _ := conn.RecvData()
 fmt.Println(recvData)
 ```
 
-For the Detailed description of this library click [Here]()
+For the Detailed description of this library, click [Here]()

@@ -5,10 +5,9 @@ import (
 	"net"
 )
 
-//TCPRoute is used to set the Host and Port pair
-type TCPRoute struct {
-	Host string
-	Port string
+// Connection  interface from net package
+type Connection struct {
+	Conn net.Conn
 }
 
 // Data structure to be used to make RPC call
@@ -23,15 +22,16 @@ type DataResponse struct {
 	Response string `json:"response"`
 }
 
-// Connection  interface from net package
-type Connection struct {
-	Conn net.Conn
-}
-
 // RandomJSON is used to send random data as string
 // {"data":"USER INPUT STRING DATA"}
 type RandomJSON struct {
-	StringData string `json:"data"`
+	StringData interface{} `json:"data"`
+}
+
+//TCPRoute is used to set the Host and Port pair
+type TCPRoute struct {
+	Host string
+	Port string
 }
 
 // Connect is used to connect with host and port on a TCP stream
