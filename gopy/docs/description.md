@@ -5,7 +5,7 @@ This description involves the detailed information about the "Structures" and "M
 
 ---
 
-  ##Structures:
+  ## Structures:
   * Connection: Connection is used to store the object of "net.Conn" from "net" libary of Golang. The "net.Conn" object is created as the result of "net.Dial".
   Example:
   ```
@@ -39,7 +39,7 @@ This description involves the detailed information about the "Structures" and "M
   addr := TCPRoute{"localhost","9001"}
 ```
 ---
-##Methods:
+## Methods:
 * **Connect():** Connect() function is a member function of "TCPRoute struct" and used to establish a TCP Connection across the "Host" and "Port" Stored by TCPRoute object. Connect() function after successful connection to Python Server returns a *Connection Object, else error. This *Connection is used for futher actions.
 
   *Function Prototype:*
