@@ -1,4 +1,4 @@
-#**Description of "goPy" JSON-RPC Client Library**
+# **Description of "goPy" JSON-RPC Client Library**
 ---
 
 This description involves the detailed information about the "Structures" and "Methods" provided in this library.
