@@ -44,7 +44,7 @@ conn, _ := client.Connect()
 
 * **Step 5:** Initialise the **goPy.Data** which mentions the **METHOD NAME** and **PARAMETERS REQUIRED**
 ```
-data := &goPy.Data{"ADD", []interface{}{21, 22}}
+data := &goPy.Data{"ADD", goPy.Parameters{21, 22}}
 ```
 
 * **Step 6:** Make the RPC call to Python server to process the input and return an output
@@ -62,4 +62,4 @@ recvData, _ := conn.RecvData()
 fmt.Println(recvData)
 ```
 
-For the Detailed description of this library, click [Here]()
+For the Detailed description of this library, click [Here](https://github.com/chawlanikhil24/gopy/tree/master/docs)

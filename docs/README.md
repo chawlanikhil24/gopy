@@ -38,6 +38,12 @@ This description involves the detailed information about the "Structures" and "M
 ```
   addr := TCPRoute{"localhost","9001"}
 ```
+* Parameters: is used to provide a compact structure pass arguments by appending them in an "interface{}" array, which makes it flexible enough to pass any type of arguments, like, string,float, int in one array.
+```
+  Args := goPy.Parameters{"para1",22,234.5}
+
+```
+
 ---
 ## Methods:
 * **Connect():** Connect() function is a member function of "TCPRoute struct" and used to establish a TCP Connection across the "Host" and "Port" Stored by TCPRoute object. Connect() function after successful connection to Python Server returns a *Connection Object, else error. This *Connection is used for futher actions.

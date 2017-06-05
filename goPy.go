@@ -22,10 +22,13 @@ type DataResponse struct {
 	Response string `json:"response"`
 }
 
+//Parameters is used to structure the arguments passed during RPC call
+type Parameters []interface{}
+
 // RandomJSON is used to send random data as string
 // {"data":"USER INPUT STRING DATA"}
 type RandomJSON struct {
-	StringData interface{} `json:"data"`
+	StringData string `json:"data"`
 }
 
 //TCPRoute is used to set the Host and Port pair
@@ -46,7 +49,7 @@ func (obj *TCPRoute) Connect() (*Connection, error) {
 	return ret, nil
 }
 
-// Close Function can be used to close the TCP stream
+// Close Fucntion can be used to close the TCP stream
 func (obj *Connection) Close() {
 	conn := *obj
 	x := conn.Conn
